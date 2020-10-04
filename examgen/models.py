@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class Course(models.Model):
@@ -16,3 +17,10 @@ class Exam(models.Model):
 
     def __str__(self):
         return self.name
+
+class Exercise(models.Model):
+    activity = models.CharField(max_length=255)
+    statement = models.CharField(max_length=255)
+    answer = ArrayField(models.CharField(max_length=64))
+    options = ArrayField(models.CharField(max_length=64))
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
